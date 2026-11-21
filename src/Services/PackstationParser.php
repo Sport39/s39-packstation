@@ -40,7 +40,7 @@ class PackstationParser
                 : ['status' => 'none'];
         }
 
-        $addr1 = mb_strtoupper(trim((string)($a['address1'] ?? '')), 'UTF-8');
+        $addr1 = strtoupper(trim((string)($a['address1'] ?? '')));
         $addr2 = trim((string)($a['address2'] ?? ''));
         $name1 = preg_replace('/\s+/', '', (string)($a['name1'] ?? ''));
 
