@@ -1,0 +1,16 @@
+{
+  "name": "S39Packstation",
+  "description": "Korrigiert Packstation-/Postfiliale-Lieferadressen von Marktplatz-Auftraegen (z. B. Kaufland) ins DHL-Format: Name 1 = Postnummer, Strasse = PACKSTATION, Hausnummer = Nummer",
+  "namespace": "S39Packstation",
+  "author": "Sport39",
+  "type": "general",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "isClosedSource": false,
+  "serviceProvider": "S39Packstation\\Providers\\S39PackstationServiceProvider",
+  "require": [],
+  "runOnBuild": [],
+  "dataProviders": [],
+  "containers": [],
+  "dependencies": []
+}

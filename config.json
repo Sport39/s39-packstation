@@ -1,0 +1,34 @@
+{
+  "formatVersion": 1,
+  "menu": {
+    "settings": {
+      "label": "S39 Packstation",
+      "formFields": {
+        "active": {
+          "type": "selectBox",
+          "required": false,
+          "label": "Packstation-Adressen neuer Auftraege automatisch korrigieren",
+          "options": {
+            "defaultValue": "1",
+            "selectBoxValues": [
+              { "value": "1", "caption": "Ja" },
+              { "value": "0", "caption": "Nein" }
+            ]
+          }
+        },
+        "comment": {
+          "type": "selectBox",
+          "required": false,
+          "label": "Notiz am Auftrag hinterlassen (bei Korrektur und bei 'manuell pruefen')",
+          "options": {
+            "defaultValue": "1",
+            "selectBoxValues": [
+              { "value": "1", "caption": "Ja" },
+              { "value": "0", "caption": "Nein" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
