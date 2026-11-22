@@ -4,7 +4,7 @@
   "namespace": "S39Packstation",
   "author": "Sport39",
   "type": "general",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "proprietary",
   "isClosedSource": false,
   "serviceProvider": "S39Packstation\\Providers\\S39PackstationServiceProvider",

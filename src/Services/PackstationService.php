@@ -47,7 +47,7 @@ class PackstationService
         /** @var AuthHelper $auth */
         $auth = pluginApp(AuthHelper::class);
         try {
-            return $auth->processUnguarded(function () use ($orderId, $dryRun, $force) {
+            return $auth->processUnguarded(function () use ($orderId, $dryRun, $force, $quietManual) {
                 return $this->run($orderId, $dryRun, $force, $quietManual);
             });
         } catch (\Throwable $e) {
