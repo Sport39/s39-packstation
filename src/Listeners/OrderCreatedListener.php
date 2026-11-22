@@ -24,7 +24,8 @@ class OrderCreatedListener
             if ((int)$order->typeId !== 1) {
                 return;
             }
-            $service->handleOrder((int)$order->id);
+            $res = $service->handleOrder((int)$order->id);
+            $service->note('event', ['orderId' => (int)$order->id, 'status' => $res['status'] ?? '']);
         } catch (\Throwable $e) {
             $service->logError('orderCreated', $e);
         }

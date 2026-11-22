@@ -52,7 +52,10 @@ class PackstationService
             });
         } catch (\Throwable $e) {
             $this->logError('handleOrder', $e, ['orderId' => $orderId]);
-            return ['status' => 'error', 'orderId' => $orderId, 'message' => $e->getMessage()];
+            if (!$dryRun) {
+                $this->comment($orderId, 'S39Packstation: Fehler beim Pruefen der Lieferadresse (' . $e->getMessage() . ', Zeile ' . $e->getLine() . '). Bitte Adresse vor dem Labeldruck pruefen.');
+            }
+            return ['status' => 'error', 'orderId' => $orderId, 'message' => $e->getMessage(), 'line' => $e->getLine()];
         }
     }
 
@@ -150,6 +153,7 @@ class PackstationService
                 'referenceValue' => $orderId,
                 'text' => $text,
                 'isVisibleForContact' => false,
+                'userId' => (int)$this->config->get('S39Packstation.commentUserId', '6'),
             ]);
         } catch (\Throwable $e) {
             $this->logError('comment', $e, ['orderId' => $orderId]);
