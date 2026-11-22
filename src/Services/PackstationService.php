@@ -42,13 +42,13 @@ class PackstationService
     /**
      * @return array Ergebnis mit status none|ok|fix|fixed|manual|skip|error
      */
-    public function handleOrder(int $orderId, bool $dryRun = false, bool $force = false): array
+    public function handleOrder(int $orderId, bool $dryRun = false, bool $force = false, bool $quietManual = false): array
     {
         /** @var AuthHelper $auth */
         $auth = pluginApp(AuthHelper::class);
         try {
             return $auth->processUnguarded(function () use ($orderId, $dryRun, $force) {
-                return $this->run($orderId, $dryRun, $force);
+                return $this->run($orderId, $dryRun, $force, $quietManual);
             });
         } catch (\Throwable $e) {
             $this->logError('handleOrder', $e, ['orderId' => $orderId]);
@@ -59,7 +59,7 @@ class PackstationService
         }
     }
 
-    private function run(int $orderId, bool $dryRun, bool $force): array
+    private function run(int $orderId, bool $dryRun, bool $force, bool $quietManual = false): array
     {
         /** @var OrderRepositoryContract $orders */
         $orders = pluginApp(OrderRepositoryContract::class);
@@ -107,7 +107,7 @@ class PackstationService
         $res['before'] = $fields;
 
         if ($res['status'] === 'manual') {
-            if (!$dryRun) {
+            if (!$dryRun && !$quietManual) {
                 $this->note('manual', $res);
                 $this->comment($orderId, 'S39Packstation: Lieferadresse sieht nach Packstation/Postfiliale aus, konnte aber nicht automatisch korrigiert werden (' . $res['reason'] . '). Bitte vor dem Labeldruck pruefen: Name 1 = Postnummer, Strasse = PACKSTATION, Hausnummer = Nummer der Packstation.');
             }

@@ -17,6 +17,11 @@ class FixController extends Controller
 {
     public function run(Request $request, Response $response, PackstationService $service)
     {
+        if ((string)$request->get('scan', '0') === '1') {
+            /** @var \S39Packstation\Crons\PackstationCron $cron */
+            $cron = pluginApp(\S39Packstation\Crons\PackstationCron::class);
+            return $response->json(['scan' => $cron->handle()]);
+        }
         $orderId = (int)$request->get('orderId', 0);
         if ($orderId <= 0) {
             return $response->json(['error' => 'orderId fehlt'], 400);
